@@ -4,7 +4,7 @@ import os
 from pprint import pformat
 from urllib3.response import HTTPResponse
 from polygon import RESTClient
-from polygon.rest.models.aggs import GroupedDailyAgg, PreviousCloseAgg
+from polygon.rest.models.aggs import GroupedDailyAgg, PreviousCloseAgg, DailyOpenCloseAgg
 from dotenv import load_dotenv
 
 load_dotenv()  # take environment variables from .env.
@@ -34,15 +34,12 @@ class ServiceLayer:
             return result[0]
         return result
 
-    def get_daily_bar(self, ticker: str, iso_date: str) -> GroupedDailyAgg:
+    def get_daily_bar(self, ticker: str, iso_date: str) -> DailyOpenCloseAgg:
         """Daily open, high, low, and close (OHLC) for stock."""
-        result: list[GroupedDailyAgg] = self.client.get_grouped_daily_aggs(date=iso_date)
+        result: DailyOpenCloseAgg = self.client.get_daily_open_close_agg(date=iso_date, ticker=ticker)
         if isinstance(result, HTTPResponse):
             raise PolygonAPIException(pformat(result))
-        for item in result:
-            if item.ticker == ticker:
-                return item
-        raise PolygonAPIException(f"Stock ticker '{ticker}' was not found.")
+        return result
 
     def get_profit_range(self, ticker: str, iso_date: str) -> dict:
         prev = self.get_previous_close(ticker)
