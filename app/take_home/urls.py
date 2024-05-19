@@ -19,7 +19,7 @@ from django.urls import path, include
 from take_home import views
 
 urlpatterns = [
-    path('/', views.welcome_response),
+    path('', views.welcome_response),
     path('admin/', admin.site.urls),
     path('pets/', views.list_pets),
     path('api/', include("stocksapi.urls")),
