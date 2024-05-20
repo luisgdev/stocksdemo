@@ -1,13 +1,6 @@
 """Models module"""
 
-from django.db.models import (
-    CASCADE,
-    CharField,
-    DateField,
-    FloatField,
-    ForeignKey,
-    Model,
-)
+from django.db.models import CASCADE, CharField, DateField, FloatField, ForeignKey, Model
 
 
 class StockDailyBar(Model):

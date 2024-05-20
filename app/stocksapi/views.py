@@ -4,7 +4,7 @@ from rest_framework import generics, permissions
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 
 from stocksapi.models import ProfitAndLoss, StockDailyBar
-from stocksapi.serializers import PNLSerializer, PNLDetailSerializer, StockSerializer
+from stocksapi.serializers import PNLDetailSerializer, PNLSerializer, StockSerializer
 
 AUTH_CLASSES = (
     BasicAuthentication,

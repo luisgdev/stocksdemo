@@ -1,19 +1,20 @@
-run:
-	~/python_venv/bin/poetry run python manage.py runserver
+# Poetry executable path.
+poetry = poetry
+python_manage = python manage.py
 
-migrate:
-	~/python_venv/bin/poetry run python manage.py makemigrations
-	~/python_venv/bin/poetry run python manage.py migrate
+run:
+	$(poetry) run $(python_manage) makemigrations
+	$(poetry) run $(python_manage) migrate
+	$(poetry) run $(python_manage) runserver 0.0.0.0:5000
 
 createsuperuser:
-	~/python_venv/bin/poetry run python manage.py createsuperuser
+	$(poetry) run $(python_manage) createsuperuser
 
 test:
 	pytest ./tests/
 
 check:
 ifdef target
-		@echo 'Info: `target` is $(target)'
 		isort $(target)
 		black $(target) -l 99
 		pylint $(target)
